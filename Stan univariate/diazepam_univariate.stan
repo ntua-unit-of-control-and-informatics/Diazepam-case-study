@@ -145,16 +145,7 @@ transformed data {
                 eta_std[i]= sqrt(log(((eta_tr_std[i]^2)/(eta_tr[i])^2)+1));
                 eta[i]=log(((eta_tr[i])^2)/sqrt((eta_tr_std[i]^2)+(eta_tr[i])^2));
         }
-                
-                
-  
-         
-        H[1] = eta_std[1];
-        H[2] = eta_std[2];
-        H[3] = eta_std[3];
- 
- print(H);
-print(eta);               
+        H[:] = eta_std[:];            
 }
 //////////////////////////////////////////////////////////////////
         
@@ -163,22 +154,19 @@ parameters{
     real<lower=0>  sigma;
     vector[N_param] mu;
     vector<lower=0>[N_param] Omega; // scales
-    vector [N_param] theta_tr[N_subj];
-
-                
+    vector [N_param] theta_tr[N_subj];              
 }
 ////////////////////////////////////////////////////
 transformed parameters{
-        
-     
+
 }
 ////////////////////////////////////////////////////////////////////
         
 model{
 
-real y_hat[16,14];
+real y_hat[16,14]; //matrix to store solution of ODEs
 
-int pos;
+int pos; // uxiliary variable for segmentation
 pos = 1;
 
 //priors
