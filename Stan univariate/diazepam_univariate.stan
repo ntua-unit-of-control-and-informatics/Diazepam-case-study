@@ -139,7 +139,7 @@ transformed data {
         int idata[0];
         vector[N_param]  eta_std ; 
         vector[N_param]  eta ;
-        vector [N_param] H;                //covariance matrix
+        vector [N_param] H;                //vector containing standard deviatioin
    
         for (i in 1:N_param){
                 eta_std[i]= sqrt(log(((eta_tr_std[i]^2)/(eta_tr[i])^2)+1));
