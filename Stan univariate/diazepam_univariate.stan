@@ -165,7 +165,6 @@ transformed parameters{
 model{
 
 real y_hat[16,14]; //matrix to store solution of ODEs
-
 int pos; // uxiliary variable for segmentation
 pos = 1;
 
@@ -174,12 +173,8 @@ pos = 1;
  mu[:] ~normal(eta[:],H[:]);
  Omega[:] ~ normal(0,1);
 
- 
-
- 
- //likelihood~  
- 
-for (j in 1:N_subj){
+ //likelihood~   
+  for (j in 1:N_subj){
 
        theta_tr[j,:] ~ normal(mu[:],Omega[:]) ;
        
@@ -190,7 +185,7 @@ for (j in 1:N_subj){
        log(segment(con, pos, samp[j])) ~ normal(log( to_vector(y_hat[1:samp[j],14])/R),sigma);
        pos = pos + samp[j];
 
-}
+  }
 
 }
 
