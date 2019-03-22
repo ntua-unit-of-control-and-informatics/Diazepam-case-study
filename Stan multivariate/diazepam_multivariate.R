@@ -23,8 +23,17 @@ options(mc.cores = parallel::detectCores())
 #[14]= VEN
 
 ########################################################################
-# Function that calculates the organ weights and regional blood flows of a patient given her/his weight and gender
+# Function that calculates 
 predictor<-function(w,gender){
+  # Computes the organ weights and regional blood flows of a patient given her/his weight and gender.
+  #
+  # Args:
+  #   w: Weight of the individual in kg.
+  #   gender: 0 for males, 1 for females.
+  #
+  # Returns:
+  #   A vector containing the organ flows (12) followed by the organ volumes (14).
+        
         k1<-c(9.61e-02,-4.88e-06,3.05e-10,-3.62e-15,1.22e-20,0,0.17)
         k2<-c(3.95e-02,1.59e-05,-6.99e-10,1.09e-14,-5.26e-20,0,0.05)
         k3<-c(1.67e-04,6.2e-10,-6.54e-13,2.48e-17,-2.85e-22,1.03e-27,0.001)
