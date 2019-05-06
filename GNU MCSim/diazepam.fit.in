@@ -1,0 +1,62 @@
+# diazepam.mcmc.in
+
+# Integrate(Lsodes, 1E-7, 1E-8, 1);
+
+MCMC("diazepam.fit.out", "MPV.dat", "",
+     6000, 1, 1, 5000,
+     887146);
+
+Level {
+
+ Density (log_Cl_int, Normal_v,  3.9717546, 0.57620878);
+ Density (log_fudge,  Normal_v, -0.3465736, 0.69314718);
+ Density (log_Kp_ad,  Normal_v,  1.1973680, 0.01720564);
+
+ Density (Sigma_cli,  HalfNormal, 1);
+ Density (Sigma_var,  HalfNormal, 1);
+ Density (Sigma_vad,  HalfNormal, 1);
+
+ Density (sigma,      TruncLogNormal_v, 1, 1, 1, 10);
+ 
+ Likelihood (C_plasma, LogNormal, Prediction(C_plasma), sigma);
+
+ Kp_re_base = 2.2;
+
+ Level { # population
+ 
+  Density (log_Cl_int, Normal, log_Cl_int, Sigma_cli);
+  Density (log_fudge,  Normal, log_fudge,  Sigma_var);
+  Density (log_Kp_ad,  Normal, log_Kp_ad,  Sigma_vad);
+ 
+  Simulation { # subject 1 sex  0 (male)
+    BM = 0;
+    V_mu  = 0;
+    V_ad  = 0;
+    V_te  = 0;
+    V_sk  = 0;
+    V_ht  = 0;
+    V_br  = 0;
+    V_ki  = 0;
+    V_re  = 0;
+    V_st  = 0;
+    V_spl = 0;
+    V_li  = 0;
+    V_lu  = 0;
+    V_art = 0;
+    V_ven = 0;
+
+    Ff_te = 5e-04;
+    Ff_re = 0.1645;
+
+    C_ven = 0;
+
+    Print(C_plasma, 0.083333, 0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4, 6, 8, 10, 24, 30, 48, 72);
+    Data (C_plasma, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,);
+  }
+ 
+  # Create a simulation block for all subjects
+ 
+ }
+}
+End.
+
